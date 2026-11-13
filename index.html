@@ -416,7 +416,7 @@ details ol{padding-left:20px;font-size:14px;color:var(--muted)}
     [0,1].forEach(p=>{ const im=new Image(); im.onload=()=>{ g.drawImage(im,0,p*(1521+20),1075,1521); draw(p); done(); }; im.src=BG[p]; }); }
   window.__buildPdf=buildPdf; window.__collect=collect;
 
-  const ENDPOINT='__ENDPOINT__';
+  const ENDPOINT='https://script.google.com/macros/s/AKfycbwmheaZFnuULpU_OiPSVFsCvDnUnwdhLbPigEDPiDlFINAX4P8nuMtbp0Xoxp7TL1wo/exec';
   const toB64=blob=>new Promise((ok,no)=>{ const r=new FileReader(); r.onload=()=>ok(String(r.result).split(',')[1]); r.onerror=no; r.readAsDataURL(blob); });
   function saveBlob(blob,name){ const url=URL.createObjectURL(blob); const a=$('again'); a.href=url; a.download=name;
     const t=document.createElement('a'); t.href=url; t.download=name; t.rel='noopener'; document.body.appendChild(t); t.click(); t.remove(); }
