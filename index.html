@@ -259,7 +259,7 @@ details ol{padding-left:20px;font-size:14px;color:var(--muted)}
 </aside>
 
 <main class="card">
-<form id="f" novalidate>
+<form id="f" novalidate autocomplete="off">
   <div class="back"><button type="button" class="link" id="back">&larr; Back to information about the video</button></div>
   <section class="sec">
     <div class="sh"><div class="num" id="n1">1</div><h2>Your details</h2></div>
@@ -320,6 +320,7 @@ details ol{padding-left:20px;font-size:14px;color:var(--muted)}
     <div class="msg" id="msg" role="status" aria-live="polite"></div>
   </div>
   <div id="preview"><p class="note">Your signed form. <a id="again" href="#" download>Download the PDF again</a>. If the download does not work on this phone, take a screenshot of this image.</p><img id="pimg" alt="Signed consent form"></div>
+  <div id="nextbox" hidden><p class="note"><b>Another person signing on this phone?</b> Tap the button below. The page opens empty for the next person; the form above is not shown to them.</p><button type="button" class="btn" id="newform">Start a new form for the next person</button></div>
 </form>
 </main>
 </div>
@@ -435,10 +436,11 @@ details ol{padding-left:20px;font-size:14px;color:var(--muted)}
       if(st==='sent'){ m.className='msg ok'; m.textContent='Thank you. Your signed form has been saved on this device ('+name+') and a copy has been sent to the video coordinators.'; }
       else if(st==='unknown'){ m.className='msg ok'; m.textContent='Thank you. Your signed form has been saved on this device ('+name+'). A copy was sent to the video coordinators; please also show the PDF to the crew.'; }
       else { m.className='msg err'; m.textContent='Your signed form has been saved on this device ('+name+'), but the copy for the video coordinators could not be sent. Please send the PDF to the crew.'; }
-      go.textContent='Submitted';
+      go.textContent='Submitted'; $('nextbox').hidden=false;
     }catch(err){ m.className='msg err'; m.textContent='Something went wrong. Please try again.'; go.disabled=false; go.textContent='Sign and submit'; busy=false; }
   });
 
+  $('newform').addEventListener('click',()=>{ try{ const u=$('again').href; if(u&&u.startsWith('blob:')) URL.revokeObjectURL(u); }catch(_){} location.replace(location.pathname+'?new='+Date.now()); });
 })();
 </script>
 </body>
